@@ -1,7 +1,7 @@
 # PasswordMeter
 This Password Meter is based on a point system. Its main goal is to help the end user with a stronger password.
 
-```
+```javascript
 console.log(JSON.stringify(new PasswordMeter({
     minLength: { value: 5, message: "Hey!, check minLength" },
     maxLength: { value: 10, message: "Hey!, check maxLength" },
