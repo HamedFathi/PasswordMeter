@@ -1,7 +1,7 @@
-# Password Meter 
+# PasswordMeter 
 * It`s worth to know that this library is written in [Typescript](https://www.typescriptlang.org/)
 
-This Password Meter is based on a point system. Its main goal is to help the end user with a stronger password.
+This password meter library is inspired by pointing system in [here](http://www.passwordmeter.com/), in which the main purpose is to help the end users to have more stronger passwords.
 
 ```javascript
 console.log(JSON.stringify(new PasswordMeter({
