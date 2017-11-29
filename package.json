@@ -1,0 +1,24 @@
+{
+  "name": "password-meter",
+  "version": "1.0.0",
+  "description": "This Password Meter is based on a point system. Its main goal is to help the end user with a stronger password.",
+  "main": "index.ts",
+  "scripts": {
+    "build": "./node_modules/.bin/gulp"
+  },
+  "author": "Hamed Fathi",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/gulp": "^4.0.5",
+    "@types/gulp-plumber": "0.0.32",
+    "@types/gulp-typescrntlipt": "^2.13.0",
+    "@types/merge2": "^1.1.4",
+    "@types/run-sequence": "0.0.30",
+    "@types/typescript": "^2.0.0",
+    "gulp": "^3.9.1",
+    "gulp-run": "^1.7.1",
+    "gulp-typescript": "^3.2.3",
+    "run-sequence": "^2.2.0",
+    "typescript": "^2.6.2"
+  }
+}
