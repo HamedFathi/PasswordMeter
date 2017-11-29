@@ -2,12 +2,26 @@
   "name": "password-meter",
   "version": "1.0.0",
   "description": "This Password Meter is based on a point system. Its main goal is to help the end user with a stronger password.",
-  "main": "index.ts",
+  "keywords": [
+    "password",
+    "password meter",
+    "password strength"
+  ],
+  "homepage": "https://github.com/HamedFathi/PasswordMeter",
+  "bugs": {
+    "url": "https://github.com/HamedFathi/PasswordMeter/issues"
+  },
+  "license": "MIT",
+  "author": "Hamed Fathi <hamedfathi.contact@gmail.com>",
+  "main": "dist/amd/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HamedFathi/PasswordMeter"
+  },
+  "typings": "dist/amd/index.d.ts",
   "scripts": {
     "build": "./node_modules/.bin/gulp"
   },
-  "author": "Hamed Fathi",
-  "license": "MIT",
   "devDependencies": {
     "@types/gulp": "^4.0.5",
     "@types/gulp-plumber": "0.0.32",
