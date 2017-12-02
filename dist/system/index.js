@@ -558,17 +558,17 @@ System.register([], function (exports_1, context_1) {
                     }
                     return [];
                 };
-                PasswordMeter.prototype.getScores = function (passwords) {
+                PasswordMeter.prototype.getResults = function (passwords) {
                     var results = [];
                     if (passwords && passwords.length > 0) {
                         for (var index = 0; index < passwords.length; index++) {
-                            results.push(this.getScore(passwords[index]));
+                            results.push(this.getResult(passwords[index]));
                         }
                         return results;
                     }
                     return [];
                 };
-                PasswordMeter.prototype.getScore = function (password) {
+                PasswordMeter.prototype.getResult = function (password) {
                     if (password) {
                         // Requirements
                         var req = this.getRequirementsScore(password);

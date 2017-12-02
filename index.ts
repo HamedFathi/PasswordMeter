@@ -611,18 +611,18 @@ export class PasswordMeter {
     }
 
 
-    public getScores(passwords: string[]): IResult[] {
+    public getResults(passwords: string[]): IResult[] {
         let results = [];
         if (passwords && passwords.length > 0) {
             for (let index = 0; index < passwords.length; index++) {
-                results.push(this.getScore(passwords[index]));
+                results.push(this.getResult(passwords[index]));
             }
             return results;
         }
         return [];
     }
 
-    public getScore(password: string): IResult {
+    public getResult(password: string): IResult {
 
         if (password) {
             // Requirements

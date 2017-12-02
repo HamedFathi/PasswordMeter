@@ -1,7 +1,7 @@
 {
   "name": "password-meter",
-  "version": "2.0.0",
-  "description": "This Password Meter is based on a point system. Its main goal is to help the end user with a stronger password.",
+  "version": "2.1.0",
+  "description": "This password meter library is inspired by pointing system in http://www.passwordmeter.com/, in which the main purpose is to help the end users to have more stronger passwords.",
   "keywords": [
     "password",
     "password meter",
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@types/gulp": "^4.0.5",
     "@types/gulp-plumber": "0.0.32",
-    "@types/gulp-typescrntlipt": "^2.13.0",
+    "@types/gulp-typescript": "^2.13.0",
     "@types/merge2": "^1.1.4",
     "@types/run-sequence": "0.0.30",
     "@types/typescript": "^2.0.0",
