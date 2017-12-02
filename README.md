@@ -21,5 +21,13 @@ console.log(JSON.stringify(new PasswordMeter({
         medium: 120,     // 80>=  , <120
         strong: 180,     // 120>= , <200
         veryStrong: 200  // 200>=
-    }).getScores(['1baAe$', '0xaZ$', 'ERT', '1pwQvF@87$', '12a4A6rx90$'])));
+    }).getResults(['1baAe$', '0xaZ$', 'ERT', '1pwQvF@87$', '12a4A6rx90$'])));
  ```
+
+### Breaking changes in version 2.0
+
+```
+- getScore() renamed to getResult() 
+- getScores() renamed to getResults()
+```
+   
