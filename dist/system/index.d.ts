@@ -27,8 +27,8 @@ export interface IResult {
     errors?: string[];
 }
 export declare class PasswordMeter {
-    private requirements;
-    private scoreRange;
+    requirements: IRequirement | undefined;
+    scoreRange: IScoreRange | undefined;
     private uppercaseLetters;
     private lowercaseLetters;
     private numbers;

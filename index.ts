@@ -37,7 +37,7 @@ export class PasswordMeter {
     private lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
     private numbers = "1234567890";
     private symbols = "~`!@#$%^&*()_+-={}[]:\"|;'\\<>?/";
-    constructor(private requirements?: IRequirement, private scoreRange?: IScoreRange) {
+    constructor(public requirements?: IRequirement, public scoreRange?: IScoreRange) {
 
     }
 
