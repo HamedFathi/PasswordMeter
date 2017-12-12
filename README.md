@@ -21,7 +21,7 @@ console.log(JSON.stringify(new PasswordMeter({}, {
 // with score range (The score range must have at least two members)
 console.log(JSON.stringify(new PasswordMeter({}, {
     "100": "Low",  // 001 <= x <  100
-    "_": "High"    //         x >= 100
+    "_": "High"    //        x >= 100
 }).getResult('@xc5--WWb')));
 
 // with requirements and score range
