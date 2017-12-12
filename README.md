@@ -37,7 +37,7 @@ console.log(JSON.stringify(new PasswordMeter({
     startsWith: '1',
     endsWith: '$'
 }, {
-        "40": "verWeak",     // 001 <= x <  040
+        "40": "veryWeak",     // 001 <= x <  040
         "80": "weak",        // 040 <= x <  080
         "120": "medium",     // 080 <= x <  120
         "180": "strong",     // 120 <= x <  180
@@ -58,7 +58,7 @@ console.log(JSON.stringify(new PasswordMeter({
     startsWith: { value: '1', message: "Hey!, check startsWith" },
     endsWith: { value: '$', message: "Hey!, check endsWith" }
 }, {
-        "40": "verWeak",     // 001 <= x <  040
+        "40": "veryWeak",     // 001 <= x <  040
         "80": "weak",        // 040 <= x <  080
         "120": "medium",     // 080 <= x <  120
         "180": "strong",     // 120 <= x <  180

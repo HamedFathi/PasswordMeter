@@ -578,7 +578,7 @@ var PasswordMeter = (function () {
                 + numberOnly + repetition + consecutiveUpper + consecutiveLower
                 + consecutiveNumber + seqLetters + seqNumbers + seqSymbols;
             var defaultRanges = {
-                "40": "verWeak",
+                "40": "veryWeak",
                 "80": "weak",
                 "120": "medium",
                 "180": "strong",
