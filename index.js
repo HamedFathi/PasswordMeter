@@ -634,7 +634,7 @@ var PasswordMeter = /** @class */ (function () {
                         }
                     }
                     if (this.between(score, parseFloat(range[index - 1]), parseFloat(range[index]))) {
-                        stat = this.scoreRange[range[index]];
+                        stat = this.scoreRange[range[index - 1]];
                         break;
                     }
                 }
@@ -656,6 +656,6 @@ exports.PasswordMeter = PasswordMeter;
 console.log(JSON.stringify(new PasswordMeter({}, {
     "40": "A",
     "120": "B",
-    "200": "C" // 200>=
-}).getResult('@xcWWb')));
+    "200": "C"
+}).getResult('@xc5--WWb')));
 //# sourceMappingURL=index.js.map

@@ -656,11 +656,12 @@ export class PasswordMeter {
             let stat = "";
             if (!this.scoreRange) {
                 this.scoreRange = {
-                    "40": "verWeak",    // 1>=   , <40
-                    "80": "weak",        // 40>=  , <80
-                    "120": "medium",     // 80>=  , <120
-                    "180": "strong",     // 120>= , <200
-                    "200": "veryStrong"
+                    "40": "verWeak",     // 001 <= x <  040
+                    "80": "weak",        // 040 <= x <  080
+                    "120": "medium",     // 080 <= x <  120
+                    "180": "strong",     // 120 <= x <  180
+                    "200": "veryStrong", // 180 <= x <  200
+                    "-": "perfect"       //          >= 200
                 };
             }
             let value;
@@ -688,7 +689,7 @@ export class PasswordMeter {
                         }
                     }
                     if (this.between(score, parseFloat(range[index - 1]), parseFloat(range[index]))) {
-                        stat = this.scoreRange[range[index]];
+                        stat = this.scoreRange[range[index - 1]];
                         break;
                     }
                 }
@@ -707,8 +708,8 @@ export class PasswordMeter {
         };
     }
 }
-/*console.log(JSON.stringify(new PasswordMeter({}, {
+console.log(JSON.stringify(new PasswordMeter({}, {
     "40": "A",
     "120": "B",
     "200": "C"
-}).getResult('@xcWWb')));*/
+}).getResult('@xc5--WWb')));
