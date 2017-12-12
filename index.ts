@@ -6,18 +6,10 @@ export interface IRequirement {
     lowercaseLettersMinLength?: number | IMessage;
     numbersMinLength?: number | IMessage;
     symbolsMinLength?: number | IMessage;
-    mustBe?: string[] | IMessage;
-    mustNotBe?: string[] | IMessage;
+    include?: string[] | IMessage;
+    exclude?: string[] | IMessage;
     startsWith?: string | IMessage;
     endsWith?: string | IMessage;
-}
-
-export interface IScoreRange {
-    veryWeak?: number;
-    weak?: number;
-    medium?: number;
-    strong?: number;
-    veryStrong?: number;
 }
 
 export interface IMessage {
@@ -28,6 +20,7 @@ export interface IMessage {
 export interface IResult {
     score: number;
     status: string;
+    percent: number;
     errors?: string[];
 }
 
@@ -37,7 +30,7 @@ export class PasswordMeter {
     private lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
     private numbers = "1234567890";
     private symbols = "~`!@#$%^&*()_+-={}[]:\"|;'\\<>?/";
-    constructor(public requirements?: IRequirement, public scoreRange?: IScoreRange) {
+    constructor(public requirements?: IRequirement, public scoreRange?: any) {
 
     }
 
@@ -96,11 +89,14 @@ export class PasswordMeter {
         }
     }
 
+    private between(x: number, min: number, max: number) {
+        return x >= min && x < max;
+    }
+
     private isIMessage(arg: any): arg is IMessage {
         let status = arg.message !== undefined;
         return status;
     }
-
 
     private isNumber(text: string): boolean {
         if (text) {
@@ -453,8 +449,8 @@ export class PasswordMeter {
             let lowercaseLettersMinLengthMsg = "You must use at least " + req.uppercaseLettersMinLength + " lowercase letter(s).";
             let numbersMinLengthMsg = "You must use at least " + req.uppercaseLettersMinLength + " number(s).";
             let symbolsMinLengthMsg = "You must use at least " + req.uppercaseLettersMinLength + " symbol(s).";
-            let mustBeMsg = "The Password must include all the items specified.";
-            let mustNotBeMsg = "The password should not contain any of the items specified.";
+            let includeMsg = "The Password must include all the items specified.";
+            let excludeMsg = "The Password must exclude all the items specified.";
             let startsWithMsg = "The password must start with " + req.startsWith + ".";
             let endsWithMsg = "The password must end with " + req.endsWith + ".";
 
@@ -577,29 +573,29 @@ export class PasswordMeter {
                     errors.push(msg);
                 }
             }
-            if (req.mustBe) {
+            if (req.include) {
                 let val: string[];
-                let msg = mustBeMsg;
-                if (this.isIMessage(req.mustBe)) {
-                    val = <string[]>req.mustBe.value;
-                    msg = <string>req.mustBe.message;
+                let msg = includeMsg;
+                if (this.isIMessage(req.include)) {
+                    val = <string[]>req.include.value;
+                    msg = <string>req.include.message;
                 }
                 else {
-                    val = <string[]>req.mustBe;
+                    val = <string[]>req.include;
                 }
                 if (!this.contains(text, val)) {
                     errors.push(msg);
                 }
             }
-            if (req.mustNotBe) {
+            if (req.exclude) {
                 let val: string[];
-                let msg = mustNotBeMsg;
-                if (this.isIMessage(req.mustNotBe)) {
-                    val = <string[]>req.mustNotBe.value;
-                    msg = <string>req.mustNotBe.message;
+                let msg = excludeMsg;
+                if (this.isIMessage(req.exclude)) {
+                    val = <string[]>req.exclude.value;
+                    msg = <string>req.exclude.message;
                 }
                 else {
-                    val = <string[]>req.mustNotBe;
+                    val = <string[]>req.exclude;
                 }
                 if (!this.doesNotContains(text, val)) {
                     errors.push(msg);
@@ -631,7 +627,8 @@ export class PasswordMeter {
                 return {
                     "score": -1,
                     "status": "needs requirement(s)",
-                    "errors": req
+                    "errors": req,
+                    "percent": 0
                 }
             }
             // Additions
@@ -657,52 +654,61 @@ export class PasswordMeter {
 
 
             let stat = "";
-            if (this.scoreRange && this.scoreRange.veryWeak) {
-                if (score >= 1 && score < this.scoreRange.veryWeak)
-                    stat = "very weak";
+            if (!this.scoreRange) {
+                this.scoreRange = {
+                    "40": "verWeak",    // 1>=   , <40
+                    "80": "weak",        // 40>=  , <80
+                    "120": "medium",     // 80>=  , <120
+                    "180": "strong",     // 120>= , <200
+                    "200": "veryStrong"
+                };
             }
-            else {
-                if (score >= 1 && score < 40)
-                    stat = "very weak";
+            let value;
+            let message;
+            let range = Object.keys(this.scoreRange).sort(function (a: any, b: any) {
+                if (isNaN(a) || isNaN(b)) {
+                    if (a > b) return 1;
+                    else return -1;
+                }
+                return a - b;
+            });
+            for (let index = 0; index < range.length; index++) {
+                let key: any = range[index];
+                if (key != undefined) {
+                    if (index == 0) {
+                        if (this.between(score, 1, parseFloat(range[index]))) {
+                            stat = this.scoreRange[range[0]];
+                            break;
+                        }
+                    }
+                    if (index === (range.length - 1)) {
+                        if (this.between(score, parseFloat(range[index]), 1000000000000)) {
+                            stat = this.scoreRange[range[range.length - 1]];
+                            break;
+                        }
+                    }
+                    if (this.between(score, parseFloat(range[index - 1]), parseFloat(range[index]))) {
+                        stat = this.scoreRange[range[index]];
+                        break;
+                    }
+                }
             }
-            if (this.scoreRange && this.scoreRange.veryWeak && this.scoreRange.weak) {
-                if (score >= this.scoreRange.veryWeak && score < this.scoreRange.weak)
-                    stat = "weak";
-            }
-            else {
-                if (score >= 40 && score < 80)
-                    stat = "weak";
-            }
-            if (this.scoreRange && this.scoreRange.weak && this.scoreRange.medium) {
-                if (score >= this.scoreRange.weak && score < this.scoreRange.medium)
-                    stat = "medium";
-            }
-            else {
-                if (score >= 80 && score < 120)
-                    stat = "medium";
-            }
-            if (this.scoreRange && this.scoreRange.medium && this.scoreRange.strong) {
-                if (score >= this.scoreRange.medium && score < this.scoreRange.strong)
-                    stat = "strong";
-            }
-            else {
-                if (score >= 120 && score < 180)
-                    stat = "strong";
-            }
-            if (this.scoreRange && this.scoreRange.veryStrong) {
-                if (score >= 180)
-                    stat = "very strong";
-            }
-            else {
-                if (score >= 180)
-                    stat = "very strong";
-            }
+            let percent = (score * 100) / parseFloat(range[range.length - 1]);
+
             return {
                 "score": score,
-                "status": stat
+                "status": stat,
+                "percent": percent >= 100 ? 100 : percent
 
             }
         }
-        return { "score": 0, "status": "Empty" };
+        return {
+            "score": 0, "status": "Empty", "percent": 0
+        };
     }
 }
+/*console.log(JSON.stringify(new PasswordMeter({}, {
+    "40": "A",
+    "120": "B",
+    "200": "C"
+}).getResult('@xcWWb')));*/

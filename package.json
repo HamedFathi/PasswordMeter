@@ -1,6 +1,6 @@
 {
   "name": "password-meter",
-  "version": "2.5.0",
+  "version": "3.0.0",
   "description": "This password meter library is inspired by pointing system in http://www.passwordmeter.com/, in which the main purpose is to help the end users to have more stronger passwords.",
   "keywords": [
     "password",
