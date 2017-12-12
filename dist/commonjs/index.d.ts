@@ -5,17 +5,10 @@ export interface IRequirement {
     lowercaseLettersMinLength?: number | IMessage;
     numbersMinLength?: number | IMessage;
     symbolsMinLength?: number | IMessage;
-    mustBe?: string[] | IMessage;
-    mustNotBe?: string[] | IMessage;
+    include?: string[] | IMessage;
+    exclude?: string[] | IMessage;
     startsWith?: string | IMessage;
     endsWith?: string | IMessage;
-}
-export interface IScoreRange {
-    veryWeak?: number;
-    weak?: number;
-    medium?: number;
-    strong?: number;
-    veryStrong?: number;
 }
 export interface IMessage {
     value: number | string | string[];
@@ -24,22 +17,24 @@ export interface IMessage {
 export interface IResult {
     score: number;
     status: string;
-    errors?: string[];
+    percent: number;
+    errors?: string | string[];
 }
 export declare class PasswordMeter {
     requirements: IRequirement | undefined;
-    scoreRange: IScoreRange | undefined;
+    scoreRange: any;
     private uppercaseLetters;
     private lowercaseLetters;
     private numbers;
     private symbols;
-    constructor(requirements?: IRequirement | undefined, scoreRange?: IScoreRange | undefined);
+    constructor(requirements?: IRequirement | undefined, scoreRange?: any);
     private startsWith(str, word);
     private endsWith(str, word);
     private chunkString(str, len);
     private getLength(text);
     private doesNotContains(text, list);
     private contains(text, list);
+    private between(x, min, max);
     private isIMessage(arg);
     private isNumber(text);
     private isLetter(text);

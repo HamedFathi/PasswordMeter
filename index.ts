@@ -21,7 +21,7 @@ export interface IResult {
     score: number;
     status: string;
     percent: number;
-    errors?: string[];
+    errors?: string | string[];
 }
 
 export class PasswordMeter {
@@ -652,18 +652,19 @@ export class PasswordMeter {
                 + numberOnly + repetition + consecutiveUpper + consecutiveLower
                 + consecutiveNumber + seqLetters + seqNumbers + seqSymbols;
 
-
+            let defaultRanges = {
+                "40": "verWeak",     // 001 <= x <  040
+                "80": "weak",        // 040 <= x <  080
+                "120": "medium",     // 080 <= x <  120
+                "180": "strong",     // 120 <= x <  180
+                "200": "veryStrong", // 180 <= x <  200
+                "_": "perfect"       //          >= 200
+            };
             let stat = "";
             if (!this.scoreRange) {
-                this.scoreRange = {
-                    "40": "verWeak",     // 001 <= x <  040
-                    "80": "weak",        // 040 <= x <  080
-                    "120": "medium",     // 080 <= x <  120
-                    "180": "strong",     // 120 <= x <  180
-                    "200": "veryStrong", // 180 <= x <  200
-                    "-": "perfect"       //          >= 200
-                };
+                this.scoreRange = defaultRanges;
             }
+
             let value;
             let message;
             let range = Object.keys(this.scoreRange).sort(function (a: any, b: any) {
@@ -673,6 +674,14 @@ export class PasswordMeter {
                 }
                 return a - b;
             });
+            if (range.length < 2) {
+                return {
+                    "score": -2,
+                    "status": "error",
+                    "errors": '"scoreRange" must have at least two members.',
+                    "percent": 0
+                }
+            }
             for (let index = 0; index < range.length; index++) {
                 let key: any = range[index];
                 if (key != undefined) {
@@ -683,18 +692,28 @@ export class PasswordMeter {
                         }
                     }
                     if (index === (range.length - 1)) {
-                        if (this.between(score, parseFloat(range[index]), 1000000000000)) {
-                            stat = this.scoreRange[range[range.length - 1]];
-                            break;
+                        if (range[index] == "_") {
+                            if (this.between(score, parseFloat(range[index - 1]), 1000000000000000000)) {
+                                stat = this.scoreRange[range[range.length - 1]];
+                                break;
+                            }
+                        }
+                        else {
+                            return {
+                                "score": -2,
+                                "status": "error",
+                                "errors": 'The last member of the "scoreRange" must be "_".',
+                                "percent": 0
+                            }
                         }
                     }
                     if (this.between(score, parseFloat(range[index - 1]), parseFloat(range[index]))) {
-                        stat = this.scoreRange[range[index - 1]];
+                        stat = this.scoreRange[range[index]];
                         break;
                     }
                 }
             }
-            let percent = (score * 100) / parseFloat(range[range.length - 1]);
+            let percent = (score * 100) / parseFloat(range[range.length - 2]);
 
             return {
                 "score": score,
@@ -708,8 +727,65 @@ export class PasswordMeter {
         };
     }
 }
+/*
+// default
+console.log(JSON.stringify(new PasswordMeter().getResult('@xc5--WWb')));
+
+// with score range
 console.log(JSON.stringify(new PasswordMeter({}, {
-    "40": "A",
-    "120": "B",
-    "200": "C"
+    "40": "E",  // 001 <= x <  040
+    "80": "D",  // 040 <= x <  080
+    "120": "C", // 080 <= x <  120
+    "180": "B", // 120 <= x <  180
+    "200": "A", // 180 <= x <  200
+    "_": "A+"   //        x >= 200
 }).getResult('@xc5--WWb')));
+
+// with score range (The score range must have at least two members)
+console.log(JSON.stringify(new PasswordMeter({}, {
+    "100": "Low",  // 001 <= x <  100
+    "_": "High"    //         x >= 100
+}).getResult('@xc5--WWb')));
+
+// with requirements and score range
+console.log(JSON.stringify(new PasswordMeter({
+    minLength: 5,
+    maxLength: 10,
+    uppercaseLettersMinLength: 1,
+    lowercaseLettersMinLength: 2,
+    numbersMinLength: 1,
+    symbolsMinLength: 1,
+    include: ['a', '$'],
+    exclude: ['1baA$', '0xaZ$'],
+    startsWith: '1',
+    endsWith: '$'
+}, {
+        "40": "verWeak",     // 001 <= x <  040
+        "80": "weak",        // 040 <= x <  080
+        "120": "medium",     // 080 <= x <  120
+        "180": "strong",     // 120 <= x <  180
+        "200": "veryStrong", // 180 <= x <  200
+        "_": "perfect"       //        x >= 200
+    }).getResults(['1baAe$', '0xaZ$', 'ERT', '1pwQvF@87$', '12a4A6rx90$'])));
+
+// with requirements and score range and custom messages
+console.log(JSON.stringify(new PasswordMeter({
+    minLength: { value: 5, message: "Hey!, check minLength" },
+    maxLength: { value: 10, message: "Hey!, check maxLength" },
+    uppercaseLettersMinLength: { value: 1, message: "Hey!, check uppercaseLettersMinLength" },
+    lowercaseLettersMinLength: { value: 2, message: "Hey!, check lowercaseLettersMinLength" },
+    numbersMinLength: { value: 1, message: "Hey!, check numbersMinLength" },
+    symbolsMinLength: { value: 1, message: "Hey!, check symbolsMinLength" },
+    include: { value: ['a', '$'], message: "Hey!, check include(s)" },
+    exclude: { value: ['1baA$', '0xaZ$'], message: "Hey!, check exclude(s)" },
+    startsWith: { value: '1', message: "Hey!, check startsWith" },
+    endsWith: { value: '$', message: "Hey!, check endsWith" }
+}, {
+        "40": "verWeak",     // 001 <= x <  040
+        "80": "weak",        // 040 <= x <  080
+        "120": "medium",     // 080 <= x <  120
+        "180": "strong",     // 120 <= x <  180
+        "200": "veryStrong", // 180 <= x <  200
+        "_": "perfect"       //        x >= 200
+    }).getResults(['1baAe$', '0xaZ$', 'ERT', '1pwQvF@87$', '12a4A6rx90$'])));
+*/
