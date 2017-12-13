@@ -7,6 +7,7 @@ This password meter library is inspired by pointing system in [here](http://www.
 
 // default
 console.log(JSON.stringify(new PasswordMeter().getResult('@xc5--WWb')));
+// result
 {
 	"score" : 170,
 	"status" : "strong",
@@ -23,6 +24,7 @@ console.log(JSON.stringify(new PasswordMeter({}, {
     "200": "A", // 180 <= x <  200
     "_": "A+"   //        x >= 200
 }).getResult('@xc5--WWb')));
+// result
 {
 	"score" : 170,
 	"status" : "B",
@@ -34,6 +36,7 @@ console.log(JSON.stringify(new PasswordMeter({}, {
     "100": "Low",  // 001 <= x <  100
     "_": "High"    //        x >= 100
 }).getResult('@xc5--WWb')));
+// result
 {
 	"score" : 170,
 	"status" : "High",
@@ -59,7 +62,8 @@ console.log(JSON.stringify(new PasswordMeter({
         "180": "strong",     // 120 <= x <  180
         "200": "veryStrong", // 180 <= x <  200
         "_": "perfect"       //        x >= 200
-    }).getResults(['1baAe$', '0xaZ$', 'ERT', '1pwQvF@87$', '12a4A6rx90$'])));
+    }).getResults(['1baAe$', '0xaZ$', 'ERT', '1pwQvF@87$','12a4A6rx90$'])));
+// result
 [{
 		"score" : 118,
 		"status" : "medium",
@@ -107,7 +111,8 @@ console.log(JSON.stringify(new PasswordMeter({
         "180": "strong",     // 120 <= x <  180
         "200": "veryStrong", // 180 <= x <  200
         "_": "perfect"       //        x >= 200
-    }).getResults(['1baAe$', '0xaZ$', 'ERT', '1pwQvF@87$', '12a4A6rx90$'])));
+    }).getResults(['1baAe$', '0xaZ$', 'ERT', '1pwQvF@87$','12a4A6rx90$'])));
+// result
 [{
 		"score" : 118,
 		"status" : "medium",
