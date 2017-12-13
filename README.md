@@ -7,6 +7,12 @@ This password meter library is inspired by pointing system in [here](http://www.
 
 // default
 console.log(JSON.stringify(new PasswordMeter().getResult('@xc5--WWb')));
+{
+	"score" : 170,
+	"status" : "strong",
+	"percent" : 85
+}
+
 
 // with score range
 console.log(JSON.stringify(new PasswordMeter({}, {
@@ -17,12 +23,22 @@ console.log(JSON.stringify(new PasswordMeter({}, {
     "200": "A", // 180 <= x <  200
     "_": "A+"   //        x >= 200
 }).getResult('@xc5--WWb')));
+{
+	"score" : 170,
+	"status" : "B",
+	"percent" : 85
+}
 
 // with score range (The score range must have at least two members)
 console.log(JSON.stringify(new PasswordMeter({}, {
     "100": "Low",  // 001 <= x <  100
     "_": "High"    //        x >= 100
 }).getResult('@xc5--WWb')));
+{
+	"score" : 170,
+	"status" : "High",
+	"percent" : 100
+}
 
 // with requirements and score range
 console.log(JSON.stringify(new PasswordMeter({
@@ -37,13 +53,40 @@ console.log(JSON.stringify(new PasswordMeter({
     startsWith: '1',
     endsWith: '$'
 }, {
-        "40": "veryWeak",     // 001 <= x <  040
+        "40": "veryWeak",    // 001 <= x <  040
         "80": "weak",        // 040 <= x <  080
         "120": "medium",     // 080 <= x <  120
         "180": "strong",     // 120 <= x <  180
         "200": "veryStrong", // 180 <= x <  200
         "_": "perfect"       //        x >= 200
     }).getResults(['1baAe$', '0xaZ$', 'ERT', '1pwQvF@87$', '12a4A6rx90$'])));
+[{
+		"score" : 118,
+		"status" : "medium",
+		"percent" : 59
+	}, {
+		"score" : -1,
+		"status" : "needs requirement(s)",
+		"errors" : ["The password must start with 1.", "The Password must exclude all the items specified."],
+		"percent" : 0
+	}, {
+		"score" : -1,
+		"status" : "needs requirement(s)",
+		"errors" : ["The minimum password length is 5.", "The password must start with 1.", "The password must end with $.", "You must use at least 1 lowercase letter(s).", "You must use at least 1 number(s).", "You must use at least 1 symbol(s).", "The Password must include all the items specified."],
+		"percent" : 0
+	}, {
+		"score" : -1,
+		"status" : "needs requirement(s)",
+		"errors" : ["The Password must include all the items specified."],
+		"percent" : 0
+	}, {
+		"score" : -1,
+		"status" : "needs requirement(s)",
+		"errors" : ["The maximum password length is 10."],
+		"percent" : 0
+	}
+]    
+    
 
 // with requirements and score range and custom messages
 console.log(JSON.stringify(new PasswordMeter({
@@ -58,20 +101,39 @@ console.log(JSON.stringify(new PasswordMeter({
     startsWith: { value: '1', message: "Hey!, check startsWith" },
     endsWith: { value: '$', message: "Hey!, check endsWith" }
 }, {
-        "40": "veryWeak",     // 001 <= x <  040
+        "40": "veryWeak",    // 001 <= x <  040
         "80": "weak",        // 040 <= x <  080
         "120": "medium",     // 080 <= x <  120
         "180": "strong",     // 120 <= x <  180
         "200": "veryStrong", // 180 <= x <  200
         "_": "perfect"       //        x >= 200
     }).getResults(['1baAe$', '0xaZ$', 'ERT', '1pwQvF@87$', '12a4A6rx90$'])));
-```
-
-### Breaking changes in version 2.0
-
-```
-- getScore() renamed to getResult() 
-- getScores() renamed to getResults()
+[{
+		"score" : 118,
+		"status" : "medium",
+		"percent" : 59
+	}, {
+		"score" : -1,
+		"status" : "needs requirement(s)",
+		"errors" : ["Hey!, check startsWith", "Hey!, check exclude(s)"],
+		"percent" : 0
+	}, {
+		"score" : -1,
+		"status" : "needs requirement(s)",
+		"errors" : ["Hey!, check minLength", "Hey!, check startsWith", "Hey!, check endsWith", "Hey!, check lowercaseLettersMinLength", "Hey!, check numbersMinLength", "Hey!, check symbolsMinLength", "Hey!, check include(s)"],
+		"percent" : 0
+	}, {
+		"score" : -1,
+		"status" : "needs requirement(s)",
+		"errors" : ["Hey!, check include(s)"],
+		"percent" : 0
+	}, {
+		"score" : -1,
+		"status" : "needs requirement(s)",
+		"errors" : ["Hey!, check maxLength"],
+		"percent" : 0
+	}
+]    
 ```
 
 ### Breaking changes in version 3.0
@@ -84,4 +146,11 @@ console.log(JSON.stringify(new PasswordMeter({
   Conditions :
     1. The score range must have at least two members.
     2. The last member of the score range must be "_".
+```
+
+### Breaking changes in version 2.0
+
+```
+- getScore() renamed to getResult() 
+- getScores() renamed to getResults()
 ```
