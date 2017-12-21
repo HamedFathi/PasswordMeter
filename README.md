@@ -1,7 +1,5 @@
 [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://opensource.org/licenses/MIT)
-
 [![npm version](https://badge.fury.io/js/password-meter.svg)](https://badge.fury.io/js/password-meter)
-
 
 # PasswordMeter 
 * It`s worth to know that this library is written in [Typescript](https://www.typescriptlang.org/)
