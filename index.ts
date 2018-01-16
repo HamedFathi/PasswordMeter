@@ -8,6 +8,7 @@ export interface IRequirement {
     symbolsMinLength?: number | IMessage;
     include?: string[] | IMessage;
     exclude?: string[] | IMessage;
+    blackList?: string[] | IMessage;
     startsWith?: string | IMessage;
     endsWith?: string | IMessage;
 }
@@ -78,6 +79,26 @@ export class PasswordMeter {
             if (list) {
                 let containsAll = list.every(x => text.indexOf(x) >= 0);
                 return containsAll;
+            }
+            else {
+                return false;
+
+            }
+        }
+        else {
+            return false;
+        }
+    }
+
+    private isInBlackList(text: string, list: string[]): boolean {
+        if (text) {
+            if (list) {
+                for (let index = 0; index < list.length; index++) {
+                    if (text === list[index]) {
+                        return true;
+                    }
+                }
+                return false;
             }
             else {
                 return false;
@@ -453,6 +474,7 @@ export class PasswordMeter {
             let excludeMsg = "The Password must exclude all the items specified.";
             let startsWithMsg = "The password must start with " + req.startsWith + ".";
             let endsWithMsg = "The password must end with " + req.endsWith + ".";
+            let blackListMsg = "Your password is in the blacklist.";
 
             let upperCount = (text.match(/[A-Z]/g) || []).length;
             let lowerCount = (text.match(/[a-z]/g) || []).length;
@@ -601,6 +623,24 @@ export class PasswordMeter {
                     errors.push(msg);
                 }
             }
+
+            if (req.blackList) {
+                let val: string[];
+                let msg = blackListMsg;
+                if (this.isIMessage(req.blackList)) {
+                    val = <string[]>req.blackList.value;
+                    msg = <string>req.blackList.message;
+                }
+                else {
+                    val = <string[]>req.blackList;
+                }
+                if (this.isInBlackList(text, val)) {
+                    errors.push(msg);
+                }
+            }
+
+
+
             return errors;
         }
         return [];

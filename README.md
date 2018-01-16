@@ -145,6 +145,13 @@ console.log(JSON.stringify(new PasswordMeter({
 ]    
 ```
 
+
+### new in version 3.1
+
+```
+- blackList property added. eg: { blackList : ['123456','p@ssw0rd'] }
+```
+
 ### Breaking changes in version 3.0
 
 ```
