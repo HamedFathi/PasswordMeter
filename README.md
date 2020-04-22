@@ -145,6 +145,16 @@ console.log(JSON.stringify(new PasswordMeter({
 ]    
 ```
 
+### new in version 3.2
+
+```
+An 'ignoreCase' mode is added in .getResult('',ignoreCase: boolean = false)) and .getResults([],ignoreCase: boolean = false)) as a parameter.
+Default value is 'false'
+It helps you to 'exclude' and 'blackList' passwords in an easier way if you pass the 'true' so 
+	exclude: { value: ['test'], message: "Hey!, check exclude(s)" },
+means every kind of 'test' word for example teST, TEST, Test eESt and so on are excluded.
+
+```
 
 ### new in version 3.1
 

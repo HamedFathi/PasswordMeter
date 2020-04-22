@@ -588,7 +588,7 @@ System.register([], function (exports_1, context_1) {
                     return [];
                 };
                 PasswordMeter.prototype.getResults = function (passwords, ignoreCase) {
-                    if (ignoreCase === void 0) { ignoreCase = true; }
+                    if (ignoreCase === void 0) { ignoreCase = false; }
                     var results = [];
                     if (passwords && passwords.length > 0) {
                         for (var index = 0; index < passwords.length; index++) {
@@ -599,7 +599,7 @@ System.register([], function (exports_1, context_1) {
                     return [];
                 };
                 PasswordMeter.prototype.getResult = function (password, ignoreCase) {
-                    if (ignoreCase === void 0) { ignoreCase = true; }
+                    if (ignoreCase === void 0) { ignoreCase = false; }
                     if (password) {
                         var req = this.getRequirementsScore(password, ignoreCase);
                         if (req.length != 0) {

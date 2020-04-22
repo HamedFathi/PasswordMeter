@@ -657,7 +657,7 @@ export class PasswordMeter {
     }
 
 
-    public getResults(passwords: string[], ignoreCase: boolean = true): IResult[] {
+    public getResults(passwords: string[], ignoreCase: boolean = false): IResult[] {
         let results = [];
         if (passwords && passwords.length > 0) {
             for (let index = 0; index < passwords.length; index++) {
@@ -668,7 +668,7 @@ export class PasswordMeter {
         return [];
     }
 
-    public getResult(password: string, ignoreCase: boolean = true): IResult {
+    public getResult(password: string, ignoreCase: boolean = false): IResult {
 
         if (password) {
             // Requirements
