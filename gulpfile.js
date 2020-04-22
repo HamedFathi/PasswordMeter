@@ -4,7 +4,6 @@
 var gulp = require('gulp');
 var run = require('gulp-run');
 var ts = require('gulp-typescript');
-var runSequence = require('run-sequence');
 
 var tsProjectAMD = ts.createProject('./tsconfig.json', {
     typescript: require('typescript'),
@@ -51,9 +50,6 @@ gulp.task('system', function () {
         .pipe(gulp.dest('dist/system'));
 });
 
-gulp.task('default', function (callback) {
-    return runSequence(
-        ['es2015', 'amd', 'system', 'commonjs'],
-        callback
-    );
-});
+gulp.task('default', gulp.series('es2015', 'amd', 'system', 'commonjs', function (callback) {
+    callback();
+}));

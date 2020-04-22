@@ -1,7 +1,7 @@
 System.register([], function (exports_1, context_1) {
     "use strict";
-    var __moduleName = context_1 && context_1.id;
     var PasswordMeter;
+    var __moduleName = context_1 && context_1.id;
     return {
         setters: [],
         execute: function () {
@@ -53,6 +53,24 @@ System.register([], function (exports_1, context_1) {
                         if (list) {
                             var containsAll = list.every(function (x) { return text.indexOf(x) >= 0; });
                             return containsAll;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else {
+                        return false;
+                    }
+                };
+                PasswordMeter.prototype.isInBlackList = function (text, list) {
+                    if (text) {
+                        if (list) {
+                            for (var index = 0; index < list.length; index++) {
+                                if (text === list[index]) {
+                                    return true;
+                                }
+                            }
+                            return false;
                         }
                         else {
                             return false;
@@ -381,7 +399,7 @@ System.register([], function (exports_1, context_1) {
                     }
                     return 0;
                 };
-                PasswordMeter.prototype.getRequirementsScore = function (text) {
+                PasswordMeter.prototype.getRequirementsScore = function (text, ignoreCase) {
                     var req = this.requirements;
                     var errors = [];
                     if (req) {
@@ -396,6 +414,7 @@ System.register([], function (exports_1, context_1) {
                         var excludeMsg = "The Password must exclude all the items specified.";
                         var startsWithMsg = "The password must start with " + req.startsWith + ".";
                         var endsWithMsg = "The password must end with " + req.endsWith + ".";
+                        var blackListMsg = "Your password is in the blacklist.";
                         var upperCount = (text.match(/[A-Z]/g) || []).length;
                         var lowerCount = (text.match(/[a-z]/g) || []).length;
                         var numbersCount = (text.match(/[0-9]/g) || []).length;
@@ -527,6 +546,7 @@ System.register([], function (exports_1, context_1) {
                             }
                         }
                         if (req.exclude) {
+                            var txt = text;
                             var val = void 0;
                             var msg = excludeMsg;
                             if (this.isIMessage(req.exclude)) {
@@ -536,7 +556,30 @@ System.register([], function (exports_1, context_1) {
                             else {
                                 val = req.exclude;
                             }
-                            if (!this.doesNotContains(text, val)) {
+                            if (ignoreCase) {
+                                txt = text.toLowerCase();
+                                val = val.map(function (v) { return v.toLowerCase(); });
+                            }
+                            if (!this.doesNotContains(txt, val)) {
+                                errors.push(msg);
+                            }
+                        }
+                        if (req.blackList) {
+                            var txt = text;
+                            var val = void 0;
+                            var msg = blackListMsg;
+                            if (this.isIMessage(req.blackList)) {
+                                val = req.blackList.value;
+                                msg = req.blackList.message;
+                            }
+                            else {
+                                val = req.blackList;
+                            }
+                            if (ignoreCase) {
+                                txt = text.toLowerCase();
+                                val = val.map(function (v) { return v.toLowerCase(); });
+                            }
+                            if (this.isInBlackList(txt, val)) {
                                 errors.push(msg);
                             }
                         }
@@ -544,19 +587,21 @@ System.register([], function (exports_1, context_1) {
                     }
                     return [];
                 };
-                PasswordMeter.prototype.getResults = function (passwords) {
+                PasswordMeter.prototype.getResults = function (passwords, ignoreCase) {
+                    if (ignoreCase === void 0) { ignoreCase = true; }
                     var results = [];
                     if (passwords && passwords.length > 0) {
                         for (var index = 0; index < passwords.length; index++) {
-                            results.push(this.getResult(passwords[index]));
+                            results.push(this.getResult(passwords[index], ignoreCase));
                         }
                         return results;
                     }
                     return [];
                 };
-                PasswordMeter.prototype.getResult = function (password) {
+                PasswordMeter.prototype.getResult = function (password, ignoreCase) {
+                    if (ignoreCase === void 0) { ignoreCase = true; }
                     if (password) {
-                        var req = this.getRequirementsScore(password);
+                        var req = this.getRequirementsScore(password, ignoreCase);
                         if (req.length != 0) {
                             return {
                                 "score": -1,

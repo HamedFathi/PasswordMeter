@@ -460,7 +460,7 @@ export class PasswordMeter {
         return 0;
     }
 
-    private getRequirementsScore(text: string): string[] {
+    private getRequirementsScore(text: string, ignoreCase: boolean): string[] {
         let req = this.requirements;
         let errors: string[] = [];
         if (req) {
@@ -610,6 +610,7 @@ export class PasswordMeter {
                 }
             }
             if (req.exclude) {
+                let txt = text;
                 let val: string[];
                 let msg = excludeMsg;
                 if (this.isIMessage(req.exclude)) {
@@ -619,12 +620,17 @@ export class PasswordMeter {
                 else {
                     val = <string[]>req.exclude;
                 }
-                if (!this.doesNotContains(text, val)) {
+                if (ignoreCase) {
+                    txt = text.toLowerCase();
+                    val = val.map(v => v.toLowerCase());
+                }
+                if (!this.doesNotContains(txt, val)) {
                     errors.push(msg);
                 }
             }
 
             if (req.blackList) {
+                let txt = text;
                 let val: string[];
                 let msg = blackListMsg;
                 if (this.isIMessage(req.blackList)) {
@@ -634,7 +640,11 @@ export class PasswordMeter {
                 else {
                     val = <string[]>req.blackList;
                 }
-                if (this.isInBlackList(text, val)) {
+                if (ignoreCase) {
+                    txt = text.toLowerCase();
+                    val = val.map(v => v.toLowerCase());
+                }
+                if (this.isInBlackList(txt, val)) {
                     errors.push(msg);
                 }
             }
@@ -647,22 +657,22 @@ export class PasswordMeter {
     }
 
 
-    public getResults(passwords: string[]): IResult[] {
+    public getResults(passwords: string[], ignoreCase: boolean = true): IResult[] {
         let results = [];
         if (passwords && passwords.length > 0) {
             for (let index = 0; index < passwords.length; index++) {
-                results.push(this.getResult(passwords[index]));
+                results.push(this.getResult(passwords[index], ignoreCase));
             }
             return results;
         }
         return [];
     }
 
-    public getResult(password: string): IResult {
+    public getResult(password: string, ignoreCase: boolean = true): IResult {
 
         if (password) {
             // Requirements
-            let req = this.getRequirementsScore(password);
+            let req = this.getRequirementsScore(password, ignoreCase);
             if (req.length != 0) {
                 return {
                     "score": -1,
