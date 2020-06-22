@@ -30,7 +30,6 @@ export class PasswordMeter {
     private uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
     private numbers = "1234567890";
-    private symbols = "~`!@#$%^&*()_+-={}[]:\"|;'\\<>?/";
     constructor(public requirements?: IRequirement, public scoreRange?: any) {
 
     }
@@ -158,6 +157,18 @@ export class PasswordMeter {
         return false;
     }
 
+    private getSymbols(text: string): string | undefined {
+        let result = "";
+        if (text) {
+            for (let index = 0; index < text.length; index++) {
+                if (this.isSymbol(text[index]))
+                    result += text[index];
+            }
+        }
+        if (result.length === 0) return undefined;
+        return result;
+    }
+
     private getLengthScore(text: string): number {
         if (text) {
             // +(n*9)
@@ -171,7 +182,7 @@ export class PasswordMeter {
             // +((len-n)*2)	
             const ratio = 2;
             let n = 0;
-            text.split('').forEach((value, index) => {
+            text.split('').forEach((value) => {
                 if (this.isUppercaseLetter(value)) {
                     n++;
                 }
@@ -188,7 +199,7 @@ export class PasswordMeter {
             // +((len-n)*2)	
             const ratio = 2;
             let n = 0;
-            text.split('').forEach((value, index) => {
+            text.split('').forEach((value) => {
                 if (this.isLowercaseLetter(value)) {
                     n++;
                 }
@@ -205,7 +216,7 @@ export class PasswordMeter {
             // +((len-n)*4)	
             const ratio = 4;
             let n = 0;
-            text.split('').forEach((value, index) => {
+            text.split('').forEach((value) => {
                 if (this.isNumber(value)) {
                     n++;
                 }
@@ -222,7 +233,7 @@ export class PasswordMeter {
             // +((len-n)*6)	
             const ratio = 6;
             let n = 0;
-            text.split('').forEach((value, index) => {
+            text.split('').forEach((value) => {
                 if (this.isSymbol(value)) {
                     n++;
                 }
@@ -266,7 +277,7 @@ export class PasswordMeter {
             }
             let score = 0;
             const ratio = -2;
-            results.forEach((value, index) => {
+            results.forEach((value) => {
                 if (this.getLength(value) > 1) {
                     // -(n*2)	
                     score += (this.getLength(value) - 1)
@@ -288,7 +299,7 @@ export class PasswordMeter {
             }
             let score = 0;
             const ratio = -2;
-            results.forEach((value, index) => {
+            results.forEach((value) => {
                 if (this.getLength(value) > 1) {
                     // -(n*2)	
                     score += (this.getLength(value) - 1)
@@ -310,7 +321,7 @@ export class PasswordMeter {
             }
             let score = 0;
             const ratio = -2;
-            results.forEach((value, index) => {
+            results.forEach((value) => {
                 if (this.getLength(value) > 1) {
                     // -(n*2)	
                     score += (this.getLength(value) - 1)
@@ -421,8 +432,9 @@ export class PasswordMeter {
 
     private getSequentialSymbolsScore(text: string): number {
         const minChunk = 3;
-        if (text) {
-            const num = this.sequentialBuilder(this.symbols, minChunk);
+        let sym = this.getSymbols(text);
+        if (text && sym) {
+            const num = this.sequentialBuilder(sym, minChunk);
             let score: number = 0;
             let txt = text;
             num.forEach(value => {
@@ -467,9 +479,9 @@ export class PasswordMeter {
             let minLengthMsg = "The minimum password length is " + req.minLength + ".";
             let maxLengthMsg = "The maximum password length is " + req.maxLength + ".";;
             let uppercaseLettersMinLengthMsg = "You must use at least " + req.uppercaseLettersMinLength + " uppercase letter(s).";
-            let lowercaseLettersMinLengthMsg = "You must use at least " + req.uppercaseLettersMinLength + " lowercase letter(s).";
-            let numbersMinLengthMsg = "You must use at least " + req.uppercaseLettersMinLength + " number(s).";
-            let symbolsMinLengthMsg = "You must use at least " + req.uppercaseLettersMinLength + " symbol(s).";
+            let lowercaseLettersMinLengthMsg = "You must use at least " + req.lowercaseLettersMinLength + " lowercase letter(s).";
+            let numbersMinLengthMsg = "You must use at least " + req.numbersMinLength + " number(s).";
+            let symbolsMinLengthMsg = "You must use at least " + req.symbolsMinLength + " symbol(s).";
             let includeMsg = "The Password must include all the items specified.";
             let excludeMsg = "The Password must exclude all the items specified.";
             let startsWithMsg = "The password must start with " + req.startsWith + ".";
@@ -715,8 +727,6 @@ export class PasswordMeter {
                 this.scoreRange = defaultRanges;
             }
 
-            let value;
-            let message;
             let range = Object.keys(this.scoreRange).sort(function (a: any, b: any) {
                 if (isNaN(a) || isNaN(b)) {
                     if (a > b) return 1;

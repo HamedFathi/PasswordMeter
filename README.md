@@ -145,6 +145,15 @@ console.log(JSON.stringify(new PasswordMeter({
 ]    
 ```
 
+### new in version 3.3
+
+```
+Everything except letters (a-z and A-Z) and numbers (0-9) are considered symbols so the symbols are not defined in advance.
+Some bugs fixed.
+
+```
+
+
 ### new in version 3.2
 
 ```
