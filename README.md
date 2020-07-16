@@ -157,7 +157,7 @@ console.log(JSON.stringify(new PasswordMeter({
 // result
 {"score":-1,"status":"needs requirement(s)","errors":["Hey!, check uniqMinLength"],"percent":0}
 ```
-They are looking for 5 unique characters but `aZ&4aZ&4` needs one more!
+They are looking for `5` unique characters but `aZ&4aZ&4` needs one more!
 
 ### new in version 3.3
 
