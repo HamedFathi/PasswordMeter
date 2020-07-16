@@ -145,6 +145,20 @@ console.log(JSON.stringify(new PasswordMeter({
 ]    
 ```
 
+### new in version 3.4
+
+`uniqueLettersMinLength` added.
+Now you can define min length for unique letters.
+
+```typescript
+console.log(JSON.stringify(new PasswordMeter({
+		uniqueLettersMinLength: { value: 5, message: "Hey!, check uniqMinLength" },
+	}).getResult('aZ&4aZ&4')));
+// result
+{"score":-1,"status":"needs requirement(s)","errors":["Hey!, check uniqMinLength"],"percent":0}
+```
+They are looking for 5 unique characters but `aZ&4aZ&4` needs one more!
+
 ### new in version 3.3
 
 ```

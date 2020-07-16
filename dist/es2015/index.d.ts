@@ -1,6 +1,7 @@
 export interface IRequirement {
     minLength?: number | IMessage;
     maxLength?: number | IMessage;
+    uniqueLettersMinLength: number | IMessage;
     uppercaseLettersMinLength?: number | IMessage;
     lowercaseLettersMinLength?: number | IMessage;
     numbersMinLength?: number | IMessage;
@@ -27,7 +28,6 @@ export declare class PasswordMeter {
     private uppercaseLetters;
     private lowercaseLetters;
     private numbers;
-    private symbols;
     constructor(requirements?: IRequirement | undefined, scoreRange?: any);
     private startsWith;
     private endsWith;
@@ -43,6 +43,7 @@ export declare class PasswordMeter {
     private isUppercaseLetter;
     private isLowercaseLetter;
     private isSymbol;
+    private getSymbols;
     private getLengthScore;
     private getUppercaseLettersScore;
     private getLowercaseLettersScore;

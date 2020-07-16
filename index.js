@@ -140,7 +140,7 @@ var PasswordMeter = (function () {
         if (text) {
             var ratio = 2;
             var n_1 = 0;
-            text.split('').forEach(function (value) {
+            text.split("").forEach(function (value) {
                 if (_this.isUppercaseLetter(value)) {
                     n_1++;
                 }
@@ -157,7 +157,7 @@ var PasswordMeter = (function () {
         if (text) {
             var ratio = 2;
             var n_2 = 0;
-            text.split('').forEach(function (value) {
+            text.split("").forEach(function (value) {
                 if (_this.isLowercaseLetter(value)) {
                     n_2++;
                 }
@@ -174,7 +174,7 @@ var PasswordMeter = (function () {
         if (text) {
             var ratio = 4;
             var n_3 = 0;
-            text.split('').forEach(function (value) {
+            text.split("").forEach(function (value) {
                 if (_this.isNumber(value)) {
                     n_3++;
                 }
@@ -191,7 +191,7 @@ var PasswordMeter = (function () {
         if (text) {
             var ratio = 6;
             var n_4 = 0;
-            text.split('').forEach(function (value) {
+            text.split("").forEach(function (value) {
                 if (_this.isSymbol(value)) {
                     n_4++;
                 }
@@ -233,8 +233,9 @@ var PasswordMeter = (function () {
             var ratio_1 = -2;
             results.forEach(function (value) {
                 if (_this.getLength(value) > 1) {
-                    score_1 += (_this.getLength(value) - 1)
-                        * ratio_1;
+                    score_1 +=
+                        (_this.getLength(value) - 1) *
+                            ratio_1;
                 }
             });
             return score_1;
@@ -253,8 +254,9 @@ var PasswordMeter = (function () {
             var ratio_2 = -2;
             results.forEach(function (value) {
                 if (_this.getLength(value) > 1) {
-                    score_2 += (_this.getLength(value) - 1)
-                        * ratio_2;
+                    score_2 +=
+                        (_this.getLength(value) - 1) *
+                            ratio_2;
                 }
             });
             return score_2;
@@ -273,8 +275,9 @@ var PasswordMeter = (function () {
             var ratio_3 = -2;
             results.forEach(function (value) {
                 if (_this.getLength(value) > 1) {
-                    score_3 += (_this.getLength(value) - 1)
-                        * ratio_3;
+                    score_3 +=
+                        (_this.getLength(value) - 1) *
+                            ratio_3;
                 }
             });
             return score_3;
@@ -287,7 +290,7 @@ var PasswordMeter = (function () {
     PasswordMeter.prototype.sequentialBuilder = function (text, minChunk) {
         if (text) {
             var list = [];
-            var len = text.split('').length - minChunk;
+            var len = text.split("").length - minChunk;
             for (var i = 0; i < len; i++) {
                 for (var index = 0; index < len; index++) {
                     var newText = text.substring(index, text.length);
@@ -306,7 +309,7 @@ var PasswordMeter = (function () {
     PasswordMeter.prototype.distinctArray = function (arr) {
         var a = [];
         for (var i = 0, l = arr.length; i < l; i++)
-            if (a.indexOf(arr[i]) === -1 && arr[i] !== '')
+            if (a.indexOf(arr[i]) === -1 && arr[i] !== "")
                 a.push(arr[i]);
         return a;
     };
@@ -402,7 +405,7 @@ var PasswordMeter = (function () {
                 ratio = -5;
             if (maxResultLength >= 11)
                 ratio = -2;
-            var score = (ratio * maxResultLength) + (text.length - (maxResultLength * 2));
+            var score = ratio * maxResultLength + (text.length - maxResultLength * 2);
             return score;
         }
         return 0;
@@ -413,9 +416,12 @@ var PasswordMeter = (function () {
         if (req) {
             var minLengthMsg = "The minimum password length is " + req.minLength + ".";
             var maxLengthMsg = "The maximum password length is " + req.maxLength + ".";
-            ;
-            var uppercaseLettersMinLengthMsg = "You must use at least " + req.uppercaseLettersMinLength + " uppercase letter(s).";
-            var lowercaseLettersMinLengthMsg = "You must use at least " + req.lowercaseLettersMinLength + " lowercase letter(s).";
+            var uppercaseLettersMinLengthMsg = "You must use at least " +
+                req.uppercaseLettersMinLength +
+                " uppercase letter(s).";
+            var lowercaseLettersMinLengthMsg = "You must use at least " +
+                req.lowercaseLettersMinLength +
+                " lowercase letter(s).";
             var numbersMinLengthMsg = "You must use at least " + req.numbersMinLength + " number(s).";
             var symbolsMinLengthMsg = "You must use at least " + req.symbolsMinLength + " symbol(s).";
             var includeMsg = "The Password must include all the items specified.";
@@ -423,6 +429,9 @@ var PasswordMeter = (function () {
             var startsWithMsg = "The password must start with " + req.startsWith + ".";
             var endsWithMsg = "The password must end with " + req.endsWith + ".";
             var blackListMsg = "Your password is in the blacklist.";
+            var uniqueLettersMinLength = "You must use at least " +
+                req.uniqueLettersMinLength +
+                " unique letter(s).";
             var upperCount = (text.match(/[A-Z]/g) || []).length;
             var lowerCount = (text.match(/[a-z]/g) || []).length;
             var numbersCount = (text.match(/[0-9]/g) || []).length;
@@ -539,6 +548,21 @@ var PasswordMeter = (function () {
                     errors.push(msg);
                 }
             }
+            if (req.uniqueLettersMinLength) {
+                var val = void 0;
+                var msg = uniqueLettersMinLength;
+                if (this.isIMessage(req.uniqueLettersMinLength)) {
+                    val = req.uniqueLettersMinLength.value;
+                    msg = req.uniqueLettersMinLength.message;
+                }
+                else {
+                    val = req.uniqueLettersMinLength;
+                }
+                var isValid = Array.from(new Set(text.split(""))).length >= val;
+                if (req.uniqueLettersMinLength && !isValid) {
+                    errors.push(msg);
+                }
+            }
             if (req.include) {
                 var val = void 0;
                 var msg = includeMsg;
@@ -612,10 +636,10 @@ var PasswordMeter = (function () {
             var req = this.getRequirementsScore(password, ignoreCase);
             if (req.length != 0) {
                 return {
-                    "score": -1,
-                    "status": "needs requirement(s)",
-                    "errors": req,
-                    "percent": 0
+                    score: -1,
+                    status: "needs requirement(s)",
+                    errors: req,
+                    percent: 0,
                 };
             }
             var len = this.getLengthScore(password);
@@ -632,16 +656,27 @@ var PasswordMeter = (function () {
             var seqLetters = this.getSequentialLettersScore(password);
             var seqNumbers = this.getSequentialNumbersScore(password);
             var seqSymbols = this.getSequentialSymbolsScore(password);
-            var score = len + upper + lower + num + symbol + letterOnly
-                + numberOnly + repetition + consecutiveUpper + consecutiveLower
-                + consecutiveNumber + seqLetters + seqNumbers + seqSymbols;
+            var score = len +
+                upper +
+                lower +
+                num +
+                symbol +
+                letterOnly +
+                numberOnly +
+                repetition +
+                consecutiveUpper +
+                consecutiveLower +
+                consecutiveNumber +
+                seqLetters +
+                seqNumbers +
+                seqSymbols;
             var defaultRanges = {
                 "40": "veryWeak",
                 "80": "weak",
                 "120": "medium",
                 "180": "strong",
                 "200": "veryStrong",
-                "_": "perfect"
+                _: "perfect",
             };
             var stat = "";
             if (!this.scoreRange) {
@@ -658,10 +693,10 @@ var PasswordMeter = (function () {
             });
             if (range.length < 2) {
                 return {
-                    "score": -2,
-                    "status": "error",
-                    "errors": '"scoreRange" must have at least two members.',
-                    "percent": 0
+                    score: -2,
+                    status: "error",
+                    errors: '"scoreRange" must have at least two members.',
+                    percent: 0,
                 };
             }
             for (var index = 0; index < range.length; index++) {
@@ -673,7 +708,7 @@ var PasswordMeter = (function () {
                             break;
                         }
                     }
-                    if (index === (range.length - 1)) {
+                    if (index === range.length - 1) {
                         if (range[index] == "_") {
                             if (this.between(score, parseFloat(range[index - 1]), 1000000000000000000)) {
                                 stat = this.scoreRange[range[range.length - 1]];
@@ -682,10 +717,10 @@ var PasswordMeter = (function () {
                         }
                         else {
                             return {
-                                "score": -2,
-                                "status": "error",
-                                "errors": 'The last member of the "scoreRange" must be "_".',
-                                "percent": 0
+                                score: -2,
+                                status: "error",
+                                errors: 'The last member of the "scoreRange" must be "_".',
+                                percent: 0,
                             };
                         }
                     }
@@ -697,35 +732,18 @@ var PasswordMeter = (function () {
             }
             var percent = (score * 100) / parseFloat(range[range.length - 2]);
             return {
-                "score": score,
-                "status": stat,
-                "percent": percent >= 100 ? 100 : percent
+                score: score,
+                status: stat,
+                percent: percent >= 100 ? 100 : percent,
             };
         }
         return {
-            "score": 0, "status": "Empty", "percent": 0
+            score: 0,
+            status: "Empty",
+            percent: 0,
         };
     };
     return PasswordMeter;
 }());
 exports.PasswordMeter = PasswordMeter;
-console.log(JSON.stringify(new PasswordMeter({
-    minLength: 5,
-    maxLength: 10,
-    uppercaseLettersMinLength: 1,
-    lowercaseLettersMinLength: 2,
-    numbersMinLength: 1,
-    symbolsMinLength: 1,
-    include: ['a', '$'],
-    exclude: ['1baA$', '0xaZ$'],
-    startsWith: '1',
-    endsWith: '$'
-}, {
-    "40": "veryWeak",
-    "80": "weak",
-    "120": "medium",
-    "180": "strong",
-    "200": "veryStrong",
-    "_": "perfect"
-}).getResults(['1baAe$', '0xaZ$', 'ERT', '1awQvF@87$', '12a4A6rx90$'])));
 //# sourceMappingURL=index.js.map
