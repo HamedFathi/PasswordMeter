@@ -1,7 +1,7 @@
 export interface IRequirement {
     minLength?: number | IMessage;
     maxLength?: number | IMessage;
-    uniqueLettersMinLength: number | IMessage;
+    uniqueLettersMinLength?: number | IMessage;
     uppercaseLettersMinLength?: number | IMessage;
     lowercaseLettersMinLength?: number | IMessage;
     numbersMinLength?: number | IMessage;
