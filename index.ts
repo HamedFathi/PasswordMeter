@@ -12,6 +12,7 @@ export interface IRequirement {
   blackList?: string[] | IMessage;
   startsWith?: string | IMessage;
   endsWith?: string | IMessage;
+  includeOne?: string[] | IMessage;
 }
 
 export interface IMessage {
@@ -73,6 +74,18 @@ export class PasswordMeter {
       if (list) {
         let containsAll = list.every((x) => text.indexOf(x) >= 0);
         return containsAll;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+  private containsOne(text: string, list: string[]): boolean {
+    if (text) {
+      if (list) {
+        let contains = list.some((x) => text.indexOf(x) >= 0);
+        return contains;
       } else {
         return false;
       }
@@ -481,6 +494,7 @@ export class PasswordMeter {
         "The password must start with " + req.startsWith + ".";
       let endsWithMsg = "The password must end with " + req.endsWith + ".";
       let blackListMsg = "Your password is in the blacklist.";
+      let includeOneMsg = "The Password must include at least one item specified [" + req.includeOne + "] .";
 
       let uniqueLettersMinLength =
         "You must use at least " +
@@ -659,6 +673,25 @@ export class PasswordMeter {
           val = val.map((v) => v.toLowerCase());
         }
         if (this.isInBlackList(txt, val)) {
+          errors.push(msg);
+        }
+      }
+
+      if (req.includeOne) {
+        let txt = text;
+        let val: string[];
+        let msg = includeOneMsg;
+        if (this.isIMessage(req.includeOne)) {
+          val = <string[]>req.includeOne.value;
+          msg = <string>req.includeOne.message;
+        } else {
+          val = <string[]>req.includeOne;
+        }
+        if (ignoreCase) {
+          txt = text.toLowerCase();
+          val = val.map((v) => v.toLowerCase());
+        }
+        if (!this.containsOne(txt, val)) {
           errors.push(msg);
         }
       }
