@@ -59,6 +59,7 @@ console.log(JSON.stringify(new PasswordMeter({
     exclude: ['1baA$', '0xaZ$'],
     startsWith: '1',
     endsWith: '$'
+    includeOne: ['$']
 }, {
         "40": "veryWeak",    // 001 <= x <  040
         "80": "weak",        // 040 <= x <  080
@@ -80,7 +81,7 @@ console.log(JSON.stringify(new PasswordMeter({
 	}, {
 		"score" : -1,
 		"status" : "needs requirement(s)",
-		"errors" : ["The minimum password length is 5.", "The password must start with 1.", "The password must end with $.", "You must use at least 1 lowercase letter(s).", "You must use at least 1 number(s).", "You must use at least 1 symbol(s).", "The Password must include all the items specified."],
+		"errors" : ["The minimum password length is 5.", "The password must start with 1.", "The password must end with $.", "You must use at least 1 lowercase letter(s).", "You must use at least 1 number(s).", "You must use at least 1 symbol(s).", "The Password must include all the items specified.", "The Password must include at least one item specified [$]."],
 		"percent" : 0
 	}, {
 		"score" : -1,
@@ -108,6 +109,7 @@ console.log(JSON.stringify(new PasswordMeter({
     exclude: { value: ['1baA$', '0xaZ$'], message: "Hey!, check exclude(s)" },
     startsWith: { value: '1', message: "Hey!, check startsWith" },
     endsWith: { value: '$', message: "Hey!, check endsWith" }
+    includeOne: { value: ['$'], message: "Hey!, check includeOne" }
 }, {
         "40": "veryWeak",    // 001 <= x <  040
         "80": "weak",        // 040 <= x <  080
@@ -129,7 +131,7 @@ console.log(JSON.stringify(new PasswordMeter({
 	}, {
 		"score" : -1,
 		"status" : "needs requirement(s)",
-		"errors" : ["Hey!, check minLength", "Hey!, check startsWith", "Hey!, check endsWith", "Hey!, check lowercaseLettersMinLength", "Hey!, check numbersMinLength", "Hey!, check symbolsMinLength", "Hey!, check include(s)"],
+		"errors" : ["Hey!, check minLength", "Hey!, check startsWith", "Hey!, check endsWith", "Hey!, check lowercaseLettersMinLength", "Hey!, check numbersMinLength", "Hey!, check symbolsMinLength", "Hey!, check include(s)", "Hey!, check includeOne"],
 		"percent" : 0
 	}, {
 		"score" : -1,
@@ -144,6 +146,21 @@ console.log(JSON.stringify(new PasswordMeter({
 	}
 ]    
 ```
+
+### new in version 3.6
+
+`includeOne` added.
+Now you can define custom special characters set.
+
+```typescript
+console.log(JSON.stringify(new PasswordMeter({
+		includeOne: { value: ["#", "!", "*"], message: "Hey!, check includeOne" },
+	}).getResult('aZ&4aZ&4')));
+// result
+{"score":-1,"status":"needs requirement(s)","errors":["Hey!, check includeOne"],"percent":0}
+```
+They are looking for including at least one character from provided set, but `aZ&4aZ&4` has none of them!
+
 
 ### new in version 3.5
 
