@@ -11,6 +11,7 @@ export interface IRequirement {
     blackList?: string[] | IMessage;
     startsWith?: string | IMessage;
     endsWith?: string | IMessage;
+    includeOne?: string[] | IMessage;
 }
 export interface IMessage {
     value: number | string | string[];
@@ -35,6 +36,7 @@ export declare class PasswordMeter {
     private getLength;
     private doesNotContains;
     private contains;
+    private containsOne;
     private isInBlackList;
     private between;
     private isIMessage;

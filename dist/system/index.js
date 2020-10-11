@@ -61,6 +61,20 @@ System.register([], function (exports_1, context_1) {
                         return false;
                     }
                 };
+                PasswordMeter.prototype.containsOne = function (text, list) {
+                    if (text) {
+                        if (list) {
+                            var contains = list.some(function (x) { return text.indexOf(x) >= 0; });
+                            return contains;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                    else {
+                        return false;
+                    }
+                };
                 PasswordMeter.prototype.isInBlackList = function (text, list) {
                     if (text) {
                         if (list) {
@@ -433,6 +447,7 @@ System.register([], function (exports_1, context_1) {
                         var startsWithMsg = "The password must start with " + req.startsWith + ".";
                         var endsWithMsg = "The password must end with " + req.endsWith + ".";
                         var blackListMsg = "Your password is in the blacklist.";
+                        var includeOneMsg = "The Password must include at least one item specified [" + req.includeOne + "] .";
                         var uniqueLettersMinLength = "You must use at least " +
                             req.uniqueLettersMinLength +
                             " unique letter(s).";
@@ -616,6 +631,25 @@ System.register([], function (exports_1, context_1) {
                                 val = val.map(function (v) { return v.toLowerCase(); });
                             }
                             if (this.isInBlackList(txt, val)) {
+                                errors.push(msg);
+                            }
+                        }
+                        if (req.includeOne) {
+                            var txt = text;
+                            var val = void 0;
+                            var msg = includeOneMsg;
+                            if (this.isIMessage(req.includeOne)) {
+                                val = req.includeOne.value;
+                                msg = req.includeOne.message;
+                            }
+                            else {
+                                val = req.includeOne;
+                            }
+                            if (ignoreCase) {
+                                txt = text.toLowerCase();
+                                val = val.map(function (v) { return v.toLowerCase(); });
+                            }
+                            if (!this.containsOne(txt, val)) {
                                 errors.push(msg);
                             }
                         }
