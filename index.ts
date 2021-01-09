@@ -703,23 +703,24 @@ export class PasswordMeter {
 
   public getResults(
     passwords: string[],
-    ignoreCase: boolean = false
+    ignoreCase: boolean = false,
+    skipReq: boolean = false
   ): IResult[] {
     let results = [];
     if (passwords && passwords.length > 0) {
       for (let index = 0; index < passwords.length; index++) {
-        results.push(this.getResult(passwords[index], ignoreCase));
+        results.push(this.getResult(passwords[index], ignoreCase, skipReq));
       }
       return results;
     }
     return [];
   }
 
-  public getResult(password: string, ignoreCase: boolean = false): IResult {
+  public getResult(password: string, ignoreCase: boolean = false, skipReq: boolean = false): IResult {
     if (password) {
       // Requirements
       let req = this.getRequirementsScore(password, ignoreCase);
-      if (req.length != 0) {
+      if (!skipReq && req.length) {
         return {
           score: -1,
           status: "needs requirement(s)",
@@ -832,11 +833,17 @@ export class PasswordMeter {
       }
       let percent = (score * 100) / parseFloat(range[range.length - 2]);
 
-      return {
+      let data = {
         score: score,
         status: stat,
         percent: percent >= 100 ? 100 : percent,
       };
+
+      if (skipReq) {
+        data = Object.assign(data, { errors: req });
+      }
+      
+      return data;
     }
     return {
       score: 0,
