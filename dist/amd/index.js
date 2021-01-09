@@ -654,22 +654,24 @@ define(["require", "exports"], function (require, exports) {
             }
             return [];
         };
-        PasswordMeter.prototype.getResults = function (passwords, ignoreCase) {
+        PasswordMeter.prototype.getResults = function (passwords, ignoreCase, skipReq) {
             if (ignoreCase === void 0) { ignoreCase = false; }
+            if (skipReq === void 0) { skipReq = false; }
             var results = [];
             if (passwords && passwords.length > 0) {
                 for (var index = 0; index < passwords.length; index++) {
-                    results.push(this.getResult(passwords[index], ignoreCase));
+                    results.push(this.getResult(passwords[index], ignoreCase, skipReq));
                 }
                 return results;
             }
             return [];
         };
-        PasswordMeter.prototype.getResult = function (password, ignoreCase) {
+        PasswordMeter.prototype.getResult = function (password, ignoreCase, skipReq) {
             if (ignoreCase === void 0) { ignoreCase = false; }
+            if (skipReq === void 0) { skipReq = false; }
             if (password) {
                 var req = this.getRequirementsScore(password, ignoreCase);
-                if (req.length != 0) {
+                if (!skipReq && req.length) {
                     return {
                         score: -1,
                         status: "needs requirement(s)",
@@ -766,11 +768,15 @@ define(["require", "exports"], function (require, exports) {
                     }
                 }
                 var percent = (score * 100) / parseFloat(range[range.length - 2]);
-                return {
+                var data = {
                     score: score,
                     status: stat,
                     percent: percent >= 100 ? 100 : percent,
                 };
+                if (skipReq) {
+                    data = Object.assign(data, { errors: req });
+                }
+                return data;
             }
             return {
                 score: 0,
