@@ -58,7 +58,7 @@ console.log(JSON.stringify(new PasswordMeter({
     include: ['a', '$'],
     exclude: ['1baA$', '0xaZ$'],
     startsWith: '1',
-    endsWith: '$'
+    endsWith: '$',
     includeOne: ['$']
 }, {
         "40": "veryWeak",    // 001 <= x <  040
@@ -108,7 +108,7 @@ console.log(JSON.stringify(new PasswordMeter({
     include: { value: ['a', '$'], message: "Hey!, check include(s)" },
     exclude: { value: ['1baA$', '0xaZ$'], message: "Hey!, check exclude(s)" },
     startsWith: { value: '1', message: "Hey!, check startsWith" },
-    endsWith: { value: '$', message: "Hey!, check endsWith" }
+    endsWith: { value: '$', message: "Hey!, check endsWith" },
     includeOne: { value: ['$'], message: "Hey!, check includeOne" }
 }, {
         "40": "veryWeak",    // 001 <= x <  040
@@ -145,6 +145,20 @@ console.log(JSON.stringify(new PasswordMeter({
 		"percent" : 0
 	}
 ]    
+```
+
+### new in version 3.7
+
+In `getResult(password: string, ignoreCase: boolean = false, skipReq: boolean = false))` `skipReq` was added
+With this option we could provide a "score" to our users based on the current 
+typed password (even if they aren't according to requirements).
+
+```typescript
+console.log(JSON.stringify(new PasswordMeter({ 
+    uniqueLettersMinLength: { value: 5, message: "Hey!, check uniqMinLength" } 
+  }).getResult('aZ&4aZ&4', false, true)));
+// result
+{"score":124,"status":"strong","percent":62,"errors":["Hey!, check uniqMinLength"]}
 ```
 
 ### new in version 3.6

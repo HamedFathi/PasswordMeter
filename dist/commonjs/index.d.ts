@@ -65,6 +65,6 @@ export declare class PasswordMeter {
     private getSequentialSymbolsScore;
     private getRepeatCharactersScore;
     private getRequirementsScore;
-    getResults(passwords: string[], ignoreCase?: boolean): IResult[];
-    getResult(password: string, ignoreCase?: boolean): IResult;
+    getResults(passwords: string[], ignoreCase?: boolean, skipReq?: boolean): IResult[];
+    getResult(password: string, ignoreCase?: boolean, skipReq?: boolean): IResult;
 }
