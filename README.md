@@ -58,7 +58,7 @@ console.log(JSON.stringify(new PasswordMeter({
     include: ['a', '$'],
     exclude: ['1baA$', '0xaZ$'],
     startsWith: '1',
-    endsWith: '$'
+    endsWith: '$',
     includeOne: ['$']
 }, {
         "40": "veryWeak",    // 001 <= x <  040
@@ -108,7 +108,7 @@ console.log(JSON.stringify(new PasswordMeter({
     include: { value: ['a', '$'], message: "Hey!, check include(s)" },
     exclude: { value: ['1baA$', '0xaZ$'], message: "Hey!, check exclude(s)" },
     startsWith: { value: '1', message: "Hey!, check startsWith" },
-    endsWith: { value: '$', message: "Hey!, check endsWith" }
+    endsWith: { value: '$', message: "Hey!, check endsWith" },
     includeOne: { value: ['$'], message: "Hey!, check includeOne" }
 }, {
         "40": "veryWeak",    // 001 <= x <  040
