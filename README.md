@@ -1,4 +1,4 @@
-﻿[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://opensource.org/licenses/MIT)
+[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://opensource.org/licenses/MIT)
 [![npm version](https://badge.fury.io/js/password-meter.svg)](https://badge.fury.io/js/password-meter)
 [![Downloads](https://img.shields.io/npm/dm/password-meter.svg)](https://www.npmjs.com/package/password-meter)
 
