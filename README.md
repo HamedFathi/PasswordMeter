@@ -2,6 +2,8 @@
 [![npm version](https://badge.fury.io/js/password-meter.svg)](https://badge.fury.io/js/password-meter)
 [![Downloads](https://img.shields.io/npm/dm/password-meter.svg)](https://www.npmjs.com/package/password-meter)
 
+![password](https://user-images.githubusercontent.com/8418700/140722813-db8b8cdb-9f97-4710-aff4-14450264bf82.png)
+
 # PasswordMeter 
 * It`s worth to know that this library is written in [Typescript](https://www.typescriptlang.org/)
 
@@ -243,3 +245,7 @@ means every kind of 'test' word for example teST, TEST, Test eESt and so on are 
 - getScore() renamed to getResult() 
 - getScores() renamed to getResults()
 ```
+
+<hr/>
+
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
