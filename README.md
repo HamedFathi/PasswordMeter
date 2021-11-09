@@ -5,7 +5,6 @@
 ![password](https://user-images.githubusercontent.com/8418700/140722813-db8b8cdb-9f97-4710-aff4-14450264bf82.png)
 
 # PasswordMeter 
-* It`s worth to know that this library is written in [Typescript](https://www.typescriptlang.org/)
 
 This password meter library is inspired by pointing system in [here](http://www.passwordmeter.com/), in which the main purpose is to help the end users to have more stronger passwords.
 
@@ -149,9 +148,13 @@ console.log(JSON.stringify(new PasswordMeter({
 ]    
 ```
 
-### new in version 3.7
+<hr/>
 
-In `getResult(password: string, ignoreCase: boolean = false, skipReq: boolean = false))` `skipReq` was added
+### Release notes
+
+##### Version 3.7
+
+In `getResult(password: string, ignoreCase: boolean = false, skipReq: boolean = false))` `skipReq` was added.
 With this option we could provide a "score" to our users based on the current 
 typed password (even if they aren't according to requirements).
 
@@ -163,7 +166,7 @@ console.log(JSON.stringify(new PasswordMeter({
 {"score":124,"status":"strong","percent":62,"errors":["Hey!, check uniqMinLength"]}
 ```
 
-### new in version 3.6
+##### Version 3.6
 
 `includeOne` added.
 Now you can define custom special characters set.
@@ -178,11 +181,11 @@ console.log(JSON.stringify(new PasswordMeter({
 They are looking for including at least one character from provided set, but `aZ&4aZ&4` has none of them!
 
 
-### new in version 3.5
+##### Version 3.5
 
 bug fixed: `uniqueLettersMinLength` is optional now.
 
-### new in version 3.4
+##### Version 3.4
 
 `uniqueLettersMinLength` added.
 Now you can define min length for unique letters.
@@ -196,38 +199,32 @@ console.log(JSON.stringify(new PasswordMeter({
 ```
 They are looking for `5` unique characters but `aZ&4aZ&4` needs one more!
 
-### new in version 3.3
+##### Version 3.3
 
 ```
-Everything except letters (a-z and A-Z) and numbers (0-9) are considered symbols 
+Everything except letters (a-z and A-Z) and numbers (0-9) are considered symbols, 
 so the symbols are not defined in advance.
-
-Some bugs fixed.
-
 ```
 
-
-### new in version 3.2
+##### Version 3.2
 
 ```
 An 'ignoreCase' mode is added in .getResult('',ignoreCase: boolean = false)) 
-and .getResults([],ignoreCase: boolean = false)) as a parameter.
+and also for .getResults([],ignoreCase: boolean = false)) as a parameter.
 
-Default value is 'false'
-
-It helps you to 'exclude' and 'blackList' passwords in an easier way if you pass the 'true' so 
-	exclude: { value: ['test'], message: "Hey!, check exclude(s)" },
+Obviously, the default value is 'false', It helps you to 'exclude' and 'blackList' passwords in an easier way
+if you pass the 'true' then exclude: { value: ['test'], message: "Hey!, check exclude(s)" }, 
 means every kind of 'test' word for example teST, TEST, Test eESt and so on are excluded.
 
 ```
 
-### new in version 3.1
+##### Version 3.1
 
 ```
 - blackList property added. eg: { blackList : ['123456','p@ssw0rd'] }
 ```
 
-### Breaking changes in version 3.0
+##### Version 3.0
 
 ```
 - mustBe renamed to include.
@@ -239,7 +236,7 @@ means every kind of 'test' word for example teST, TEST, Test eESt and so on are 
     2. The last member of the score range must be "_".
 ```
 
-### Breaking changes in version 2.0
+##### Version 2.0
 
 ```
 - getScore() renamed to getResult() 
