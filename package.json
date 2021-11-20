@@ -1,38 +1,79 @@
 {
-  "name": "password-meter",
-  "version": "3.7.0",
-  "description": "This password meter library is inspired by pointing system in http://www.passwordmeter.com/, in which the main purpose is to help the end users to have more stronger passwords.",
-  "keywords": [
-    "password",
-    "password meter",
-    "password strength"
-  ],
-  "homepage": "https://github.com/HamedFathi/PasswordMeter",
-  "bugs": {
-    "url": "https://github.com/HamedFathi/PasswordMeter/issues"
-  },
-  "license": "MIT",
-  "author": "Hamed Fathi <hamedfathi.contact@gmail.com>",
-  "main": "dist/commonjs/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/HamedFathi/PasswordMeter"
-  },
-  "typings": "dist/commonjs/index.d.ts",
-  "scripts": {
-    "build": "./node_modules/.bin/gulp"
-  },
-  "devDependencies": {
-    "@types/gulp": "^4.0.6",
-    "@types/gulp-plumber": "0.0.32",
-    "@types/gulp-typescript": "^2.13.0",
-    "@types/merge2": "^1.3.0",
-    "@types/run-sequence": "0.0.30",
-    "@types/typescript": "^2.0.0",
-    "gulp": "^4.0.2",
-    "gulp-run": "^1.7.1",
-    "gulp-typescript": "^5.0.1",
-    "run-sequence": "^2.2.1",
-    "typescript": "^3.9.6"
-  }
+    "name": "password-meter",
+    "version": "3.8.0",
+    "description": "This password meter library is inspired by pointing system in http://www.passwordmeter.com/, in which the main purpose is to help the end users to have more stronger passwords.",
+    "keywords": [
+        "password",
+        "password meter",
+        "password strength"
+    ],
+    "main": "dist/index.js",
+    "module": "dist/index.es.js",
+    "browser": "dist/index.umd.js",
+    "unpkg": "dist/index.umd.js",
+    "types": "dist/index.d.ts",
+    "typings": "dist/index.d.ts",
+    "engines": {
+        "node": ">=12",
+        "npm": ">=6"
+    },
+    "homepage": "https://github.com/HamedFathi/PasswordMeter",
+    "bugs": {
+        "url": "https://github.com/HamedFathi/PasswordMeter/issues"
+    },
+    "license": "MIT",
+    "author": "Hamed Fathi <hamedfathi.contact@gmail.com>",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/HamedFathi/PasswordMeter"
+    },
+    "scripts": {
+        "lint": "eslint src test --quiet --fix --ignore-path .gitignore",
+        "test": "jest",
+        "build": "npm run clean-dist && rollup -c",
+        "all": "npm run lint && npm run test && npm run build",
+        "all-docs": "npm run lint && npm run test && npm run build && npm run typedoc",
+        "coverage": "rimraf coverage && jest --coverage",
+        "typedoc": "npm run clean-docs && typedoc --out docs src/index.ts",
+        "watch": "rollup -cw",
+        "clean": "rimraf dist coverage",
+        "clean-dist": "rimraf dist",
+        "clean-coverage": "rimraf coverage",
+        "clean-docs": "rimraf docs"
+    },
+    "devDependencies": {
+        "@types/jsdom": "^16.2.13",
+        "@types/jest": "^27.0.3",
+        "@typescript-eslint/eslint-plugin": "^5.4.0",
+        "@typescript-eslint/parser": "^5.4.0",
+        "eslint": "^8.2.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "husky": "^7.0.4",
+        "jsdom": "^18.1.0",
+        "jest": "^27.3.1",
+        "ts-jest": "^27.0.7",
+        "lint-staged": "^12.0.2",
+        "prettier": "^2.4.1",
+        "rimraf": "^3.0.2",
+        "rollup": "^2.60.0",
+        "rollup-plugin-terser": "^7.0.2",
+        "rollup-plugin-typescript2": "^0.31.0",
+        "source-map-support": "^0.5.20",
+        "ts-node": "^10.4.0",
+        "tslib": "^2.3.1",
+        "typedoc": "^0.22.9",
+        "typescript": "^4.4.4"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "{src,test}/**/*.{js,ts,tsx}": [
+            "npm run lint",
+            "git add"
+        ]
+    }
 }

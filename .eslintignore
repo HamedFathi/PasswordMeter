@@ -1,0 +1,7 @@
+rollup.config.js
+.eslintrc.js
+.prettierrc.js
+dist
+coverage
+docs
+jest.config.js
