@@ -58,13 +58,13 @@ export default {
     {
         file: './dist/index.umd.js',
         format: 'umd',
-        name: '--name-umd--',
+        name: 'PasswordMeter',
         sourcemap: true
     },
     {
         file: './dist/index.umd.min.js',
         format: 'umd',
-        name: '--name-umd--',
+        name: 'PasswordMeter',
         sourcemap: true,
         plugins: [terser()]
     }],

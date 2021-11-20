@@ -152,6 +152,10 @@ console.log(JSON.stringify(new PasswordMeter({
 
 ### Release notes
 
+##### Version 3.8.1
+
+Fix a bug for `UMD` module name.
+
 ##### Version 3.8
 
 No new feature or breaking changes just changing in project structure. (From `Gulp` to `Rollup`)
