@@ -8,6 +8,12 @@
 
 This password meter library is inspired by pointing system in [here](http://www.passwordmeter.com/), in which the main purpose is to help the end users to have more stronger passwords.
 
+```
+npm i password-meter
+
+yarn add password-meter
+```
+
 ```javascript
 
 // default
