@@ -1,12 +1,12 @@
-[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://opensource.org/licenses/MIT)
-[![npm version](https://badge.fury.io/js/password-meter.svg)](https://badge.fury.io/js/password-meter)
-[![Downloads](https://img.shields.io/npm/dm/password-meter.svg)](https://www.npmjs.com/package/password-meter)
-
 ![password](https://user-images.githubusercontent.com/8418700/140722813-db8b8cdb-9f97-4710-aff4-14450264bf82.png)
 
 # PasswordMeter 
 
 This password meter library is inspired by pointing system in [here](http://www.passwordmeter.com/), in which the main purpose is to help the end users to have more stronger passwords.
+
+[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/password-meter.svg)](https://badge.fury.io/js/password-meter)
+[![Downloads](https://img.shields.io/npm/dm/password-meter.svg)](https://www.npmjs.com/package/password-meter)
 
 ```
 npm i password-meter
