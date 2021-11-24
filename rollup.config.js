@@ -5,7 +5,7 @@ export default {
     input: "./src/index.ts",
     output: [{
         format: "iife",
-        file: './dist/bundle.iife.js',
+        file: './dist/index.iife.js',
         name: 'PasswordMeterModule',
 		esModule: false,
 		exports: "named",	
@@ -13,7 +13,7 @@ export default {
     },
     {
         format: "iife",
-        file: './dist/bundle.iife.min.js',
+        file: './dist/index.iife.min.js',
         name: 'PasswordMeterModule',
         sourcemap: true,
 		esModule: false,
@@ -21,7 +21,7 @@ export default {
         plugins: [terser()]
     },
 	    {
-        file: './dist/bundle.umd.js',
+        file: './dist/index.umd.js',
         format: 'umd',
         name: 'PasswordMeterModule',
 		esModule: false,
@@ -29,7 +29,7 @@ export default {
         sourcemap: true
     },
     {
-        file: './dist/bundle.umd.min.js',
+        file: './dist/index.umd.min.js',
         format: 'umd',
         name: 'PasswordMeterModule',
 		esModule: false,
@@ -38,39 +38,39 @@ export default {
         plugins: [terser()]
     },
     {
-        file: './dist/bundle.js',
+        file: './dist/index.js',
         format: 'cjs',
         exports: 'named',
         sourcemap: true
     },
     {
-        file: './dist/bundle.min.js',
+        file: './dist/index.min.js',
         format: 'cjs',
         exports: 'named',
         sourcemap: true,
         plugins: [terser()]
     },
     {
-        file: './dist/bundle.amd.js',
+        file: './dist/index.amd.js',
         format: 'amd',
         exports: 'named',
         sourcemap: true
     },
     {
-        file: './dist/bundle.amd.min.js',
+        file: './dist/index.amd.min.js',
         format: 'amd',
         exports: 'named',
         sourcemap: true,
         plugins: [terser()]
     },
     {
-        file: './dist/bundle.es.mjs',
+        file: './dist/index.es.mjs',
         format: 'es',
         exports: 'named',
         sourcemap: true
     },
     {
-        file: './dist/bundle.es.min.mjs',
+        file: './dist/index.es.min.mjs',
         format: 'es',
         exports: 'named',
         sourcemap: true,
