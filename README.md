@@ -158,6 +158,17 @@ console.log(JSON.stringify(new PasswordMeter({
 
 ### Release notes
 
+##### Version 3.9.0
+
+Now, you can use the library inside the browser as well as the Node.js.
+
+```js
+// IIFE
+
+var pswm = new PasswordMeterModule.PasswordMeter();
+var result = pswm.getResult("pa$$w0rd");
+```
+
 ##### Version 3.8.1
 
 Fix a bug for `UMD` module name.
