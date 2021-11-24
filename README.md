@@ -162,8 +162,6 @@ console.log(JSON.stringify(new PasswordMeter({
 
 For `unpkg`, the minified `UMD` package was set.
 
-##### Version 3.9.1
-
 Fix bundle's name issue.
 
 Now, you can use the library inside the browser as well as the Node.js.
@@ -181,9 +179,10 @@ and also,
 // UMD
 
 https://unpkg.com/password-meter@VERSION/dist/index.umd.js
+
 https://unpkg.com/password-meter
-https://unpkg.com/password-meter@3.9.1/dist/index.umd.js
-https://unpkg.com/password-meter@3.9.1/dist/index.umd.min.js
+https://unpkg.com/password-meter@3.9.2/dist/index.umd.js
+https://unpkg.com/password-meter@3.9.2/dist/index.umd.min.js
 ```
 
 ```js
