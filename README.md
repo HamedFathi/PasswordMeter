@@ -158,6 +158,10 @@ console.log(JSON.stringify(new PasswordMeter({
 
 ### Release notes
 
+##### Version 3.9.1
+
+Fix bundle name issue.
+
 ##### Version 3.9.0
 
 Now, you can use the library inside the browser as well as the Node.js.
