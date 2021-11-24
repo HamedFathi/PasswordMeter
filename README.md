@@ -164,7 +164,7 @@ For `unpkg`, the minified `UMD` package was set.
 
 Fix bundle's name issue.
 
-Now, you can use the library inside the browser as well as the Node.js.
+Now, you can use the library inside a browser as well as the Node.js.
 
 ```js
 // IIFE
