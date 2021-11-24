@@ -158,6 +158,10 @@ console.log(JSON.stringify(new PasswordMeter({
 
 ### Release notes
 
+##### Version 3.9.2
+
+For `unpkg`, the minified `UMD` package was set.
+
 ##### Version 3.9.1
 
 Fix bundle's name issue.
