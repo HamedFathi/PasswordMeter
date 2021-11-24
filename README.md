@@ -178,7 +178,7 @@ var result = pswm.getResult("pa$$w0rd");
 
 and also,
 
-```
+```js
 // UMD
 
 // https://unpkg.com/password-meter@VERSION/dist/index.umd.js
