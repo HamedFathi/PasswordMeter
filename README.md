@@ -180,7 +180,6 @@ and also,
 
 ```js
 // UMD
-
 // https://unpkg.com/password-meter@VERSION/dist/index.umd.js
 // https://unpkg.com/password-meter
 // https://unpkg.com/password-meter@3.9.2/dist/index.umd.js
