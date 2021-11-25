@@ -158,6 +158,12 @@ console.log(JSON.stringify(new PasswordMeter({
 
 ### Release notes
 
+##### Version 3.9.3
+
+`System.js` module format added.
+
+All dependencies upddated.
+
 ##### Version 3.9.2
 
 For `unpkg`, the minified `UMD` package was set.
@@ -169,8 +175,8 @@ Now, you can use the library inside a browser as well as the Node.js.
 ```js
 // IIFE
 // https://unpkg.com/password-meter@VERSION/dist/index.iife.js
-// https://unpkg.com/password-meter@3.9.2/dist/index.iife.js
-// https://unpkg.com/password-meter@3.9.2/dist/index.iife.min.js
+// https://unpkg.com/password-meter@3.9.3/dist/index.iife.js
+// https://unpkg.com/password-meter@3.9.3/dist/index.iife.min.js
 
 var pswm = new PasswordMeterModule.PasswordMeter();
 var result = pswm.getResult("pa$$w0rd");
@@ -182,8 +188,8 @@ and also,
 // UMD
 // https://unpkg.com/password-meter@VERSION/dist/index.umd.js
 // https://unpkg.com/password-meter
-// https://unpkg.com/password-meter@3.9.2/dist/index.umd.js
-// https://unpkg.com/password-meter@3.9.2/dist/index.umd.min.js
+// https://unpkg.com/password-meter@3.9.3/dist/index.umd.js
+// https://unpkg.com/password-meter@3.9.3/dist/index.umd.min.js
 
 var pswm = new PasswordMeterModule.PasswordMeter();
 var result = pswm.getResult("pa$$w0rd");

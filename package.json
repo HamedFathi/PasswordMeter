@@ -1,6 +1,6 @@
 {
     "name": "password-meter",
-    "version": "3.9.2",
+    "version": "3.9.3",
     "description": "This password meter library is inspired by pointing system in http://www.passwordmeter.com/, in which the main purpose is to help the end users to have more stronger passwords.",
     "keywords": [
         "password",
@@ -46,24 +46,24 @@
         "@types/jest": "^27.0.3",
         "@typescript-eslint/eslint-plugin": "^5.4.0",
         "@typescript-eslint/parser": "^5.4.0",
-        "eslint": "^8.2.0",
+        "eslint": "^8.3.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^4.0.0",
         "husky": "^7.0.4",
-        "jsdom": "^18.1.0",
+        "jsdom": "^18.1.1",
         "jest": "^27.3.1",
         "ts-jest": "^27.0.7",
-        "lint-staged": "^12.0.2",
-        "prettier": "^2.4.1",
+        "lint-staged": "^12.1.2",
+        "prettier": "^2.5.0",
         "rimraf": "^3.0.2",
-        "rollup": "^2.60.0",
+        "rollup": "^2.60.1",
         "rollup-plugin-terser": "^7.0.2",
-        "rollup-plugin-typescript2": "^0.31.0",
-        "source-map-support": "^0.5.20",
+        "rollup-plugin-typescript2": "^0.31.1",
+        "source-map-support": "^0.5.21",
         "ts-node": "^10.4.0",
         "tslib": "^2.3.1",
-        "typedoc": "^0.22.9",
-        "typescript": "^4.4.4"
+        "typedoc": "^0.22.10",
+        "typescript": "^4.5.2"
     },
     "husky": {
         "hooks": {

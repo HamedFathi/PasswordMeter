@@ -7,8 +7,8 @@ export default {
         format: "iife",
         file: './dist/index.iife.js',
         name: 'PasswordMeterModule',
-		esModule: false,
-		exports: "named",	
+        esModule: false,
+        exports: "named",
         sourcemap: true
     },
     {
@@ -16,24 +16,24 @@ export default {
         file: './dist/index.iife.min.js',
         name: 'PasswordMeterModule',
         sourcemap: true,
-		esModule: false,
-		exports: "named",	
+        esModule: false,
+        exports: "named",
         plugins: [terser()]
     },
-	    {
+    {
         file: './dist/index.umd.js',
         format: 'umd',
         name: 'PasswordMeterModule',
-		esModule: false,
-		exports: "named",		
+        esModule: false,
+        exports: "named",
         sourcemap: true
     },
     {
         file: './dist/index.umd.min.js',
         format: 'umd',
         name: 'PasswordMeterModule',
-		esModule: false,
-		exports: "named",
+        esModule: false,
+        exports: "named",
         sourcemap: true,
         plugins: [terser()]
     },
@@ -59,6 +59,19 @@ export default {
     {
         file: './dist/index.amd.min.js',
         format: 'amd',
+        exports: 'named',
+        sourcemap: true,
+        plugins: [terser()]
+    },
+    {
+        file: './dist/index.system.js',
+        format: 'system',
+        exports: 'named',
+        sourcemap: true
+    },
+    {
+        file: './dist/index.system.min.js',
+        format: 'system',
         exports: 'named',
         sourcemap: true,
         plugins: [terser()]
