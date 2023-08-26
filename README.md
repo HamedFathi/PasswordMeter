@@ -158,6 +158,12 @@ console.log(JSON.stringify(new PasswordMeter({
 
 ### Release notes
 
+##### Version 3.10.0
+
+Adding `exports` block to `package.json` to support `.cjs` and `.mjs`.
+
+All dependencies upddated.
+
 ##### Version 3.9.3
 
 `System.js` module format added.

@@ -1,22 +1,28 @@
 {
     "name": "password-meter",
-    "version": "3.9.3",
+    "version": "3.10.0",
     "description": "This password meter library is inspired by pointing system in http://www.passwordmeter.com/, in which the main purpose is to help the end users to have more stronger passwords.",
     "keywords": [
         "password",
         "password meter",
         "password strength"
     ],
-    "main": "dist/index.js",
-    "module": "dist/index.es.js",
-    "browser": "dist/index.umd.js",
-    "unpkg": "dist/index.umd.min.js",
-    "types": "dist/index.d.ts",
-    "typings": "dist/index.d.ts",
     "engines": {
         "node": ">=12",
         "npm": ">=6"
     },
+	"main": "dist/cjs/index.cjs",
+	"module": "dist/mjs/index.mjs",
+	"browser": "dist/index.umd.js",
+	"unpkg": "dist/index.umd.min.js",
+	"types": "dist/index.d.ts",
+	"typings": "dist/index.d.ts",
+	"exports": {
+		".": {
+		  "import": "./dist/mjs/index.mjs",
+		  "require": "./dist/cjs/index.cjs"
+		}
+	},
     "homepage": "https://github.com/HamedFathi/PasswordMeter",
     "bugs": {
         "url": "https://github.com/HamedFathi/PasswordMeter/issues"

@@ -38,13 +38,13 @@ export default {
         plugins: [terser()]
     },
     {
-        file: './dist/index.js',
+        file: './dist/index.cjs',
         format: 'cjs',
         exports: 'named',
         sourcemap: true
     },
     {
-        file: './dist/index.min.js',
+        file: './dist/index.min.cjs',
         format: 'cjs',
         exports: 'named',
         sourcemap: true,
