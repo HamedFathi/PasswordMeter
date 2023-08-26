@@ -158,7 +158,7 @@ console.log(JSON.stringify(new PasswordMeter({
 
 ### Release notes
 
-##### Version 3.10.0
+##### Version 3.10.1
 
 Adding `exports` block to `package.json` to support `.cjs` and `.mjs`.
 
