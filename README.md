@@ -1,3 +1,8 @@
+> [!IMPORTANT] 
+> Introducing **HamedStack**! For all my latest libraries, visit: [Explore HamedStack](https://github.com/HamedStack). Replacements and updates are available at the link. Thank you for your support! The new version of this library is accessible in [HamedStack.PasswordMeter](https://github.com/HamedStack/HamedStack.PasswordMeter)
+---
+
+
 ![password](https://user-images.githubusercontent.com/8418700/140722813-db8b8cdb-9f97-4710-aff4-14450264bf82.png)
 
 # PasswordMeter 
